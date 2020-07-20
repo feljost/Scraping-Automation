@@ -1,17 +1,15 @@
-##################################################
-#                                                #
-# This script gathers company adresses & Phone   #
-# numbers by webscraping europages.co.uk.        #
-#                                                #
-# --------FOR EDUCATIONAL PURPOSES ONLY----------#
-#                                                #
-# INSTRUCTIONS:                                  #
-#     1. download webdriver and adjust line 40   #
-#     2. Define a list of companies called "list"#
-#     3. Save dataframe 'df' in any format you   #
-#        like.                                   #
-#                                                #
-##################################################
+#####################################################
+# ----------FOR EDUCATIONAL PURPOSES ONLY-----------#
+# This script gathers company adresses & Phone      #
+# numbers by webscraping europages.co.uk.           #
+#                                                   #
+# INSTRUCTIONS:                                     #
+#     1. download webdriver and adjust line 40      #
+#     2. Define a list of companies called "list"   #
+#     3. Save dataframe 'df' in any format you      #
+#        like.                                      #
+#                                                   #
+#####################################################
 
 import requests
 from bs4 import BeautifulSoup
