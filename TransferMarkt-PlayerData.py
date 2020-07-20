@@ -1,4 +1,14 @@
-
+#####################################################
+# ----------FOR EDUCATIONAL PURPOSES ONLY-----------#
+# This script gathers football player data from     #
+# transfermarkt.com                                 #
+#                                                   #
+# INSTRUCTIONS:                                     #
+#     1. Set starting and ending ID (line 93&94)    #
+#     2. adjust the proxy (proxy or timeout needed) #
+#     3. Run Script :)                              #
+#                                                   #
+#####################################################
 
 import pandas as pd
 import numpy as np
@@ -79,8 +89,8 @@ def ParseHTML(soup, src, df):
 
 
 if __name__ == '__main__':
-    start = 14001  # set starting integer
-    end = 16000    # set ending integer
+    start = 1  # set starting integer
+    end = 2000   # set ending integer
     starttime = time.perf_counter()
 
     for i in range(start, end):
@@ -95,13 +105,13 @@ if __name__ == '__main__':
         df = pd.merge(df, df_i, on=0, how='outer')
 
         # Save Raw output to Excel File
-        df.to_excel('010_raw.xlsx')
+        df.to_excel('DF_raw.xlsx')
     
         # Save Transformed output to Excel File
         df_t = df.transpose()
         headers = df_t.iloc[0]
         df_t  = pd.DataFrame(df_t.values[1:], columns=headers)
-        df_t.to_excel('010_transformed.xlsx')
+        df_t.to_excel('DF_transformed.xlsx')
 
     endtime = time.perf_counter()
     print(f'There were {errors} errors in this instance.')
