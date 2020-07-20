@@ -21,11 +21,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 
-
 ## Initialise the Dataframe
 df = pd.DataFrame(columns=['Company Name', 'URL', 'Phone Number', 'Address', 'Country'])
 
-## Loop through all companies
+## Loop through all companies: Make sure to define 'list' first.
 for i in list:
     company = i
     company_search_name = company.replace(" ","%20")
@@ -46,14 +45,12 @@ for i in list:
         
         driver.get(company_url)
 
-        ### Code block stolen from stackoverflow ###
+        #to get the phone number we need to click on the button and then we will be able to read the number.
         driver.execute_script("return arguments[0].scrollIntoView(true);", WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "div.click-tel.icon.icon-telephone"))))
         WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.click-tel.icon.icon-telephone"))).click()
         phone = (WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.CLASS_NAME, "info-tel-num"))).get_attribute("innerHTML"))
-
-        print("Name:", company)
-        print("Phone Number:", phone)
-
+        
+        #address and country can be read out easily 
         try:
             address = driver.find_element_by_tag_name('dd').get_attribute("innerHTML").replace("<pre>","").replace("</pre>","")
         except:
@@ -63,13 +60,15 @@ for i in list:
             country = driver.find_element_by_css_selector('span.upper').get_attribute("innerHTML")
         except:
             country = "Not Available"
-        
-        
+
         df = df.append({'Company Name': company, 'URL': company_url, 'Phone Number': phone, 'Address': address, 'Country': country}, ignore_index=True)
 
+        # 1 iteration has run, now lets close the window.
         driver.close()
         
     except:
         print("Couldn't find company", company)
         phone = "Not Available"
-    
+  
+# uncomment to save
+# df.to_csv('companies.csv')
